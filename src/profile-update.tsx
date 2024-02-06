@@ -25,14 +25,14 @@ export interface ProfileUpdateProps extends BlockAttributes {
 export const ProfileUpdate = ({ widgetApi }: ProfileUpdateProps): ReactElement | null => {
   const [user, setUser] = useState<SBUserProfile | null>(null);
   
-  // useEffect(() => {
-  //   // widgetApi.getUserInformation().then((user) => {
-  //   //   console.log("user" , user)
-  //   //   localStorage.setItem('items', JSON.stringify(user));
-  //   //   setUser(user);
-  //     // userFetch(user)
-  //   });
-  // }, []);
+  useEffect(() => {
+    widgetApi.getUserInformation().then((user) => {
+      console.log("user" , user)
+      localStorage.setItem('items', JSON.stringify(user));
+      setUser(user);
+      // userFetch(user)
+    });
+  }, []);
 
   // const userFetch = (inp: { externalID: any; }) => {
   //   console.log("uuuu", inp)
@@ -65,8 +65,9 @@ export const ProfileUpdate = ({ widgetApi }: ProfileUpdateProps): ReactElement |
     { user ? 
       <div>
         <h1 style={{ marginBottom: 10 }}>
-         Hello 🎉
+           {user.firstName} {user.lastName} 🎉
         </h1>
+        <p>is from the {user.location} office and works in the {user.department} department.</p>
       </div>
       : 
       null 
