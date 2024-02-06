@@ -43,7 +43,6 @@ const factory: BlockFactory = (BaseBlockClass, widgetApi) => {
       const attrs = this.parseAttributes<ProfileUpdateProps>();
       return {
         ...attrs,
-        contentLanguage: this.contentLanguage,
       };
     }
 
@@ -74,7 +73,7 @@ const factory: BlockFactory = (BaseBlockClass, widgetApi) => {
 const blockDefinition: BlockDefinition = {
     name: "profile-update",
     factory: factory,
-    // attributes: widgetAttributes,
+     attributes: widgetAttributes,
     blockLevel: 'block',
     configurationSchema: configurationSchema,
     uiSchema: uiSchema,
