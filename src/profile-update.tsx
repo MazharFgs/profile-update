@@ -14,6 +14,7 @@
 import axios from "axios";
 import React, { ReactElement, useEffect, useState } from "react";
 import { BlockAttributes, SBUserProfile, WidgetApi } from "widget-sdk";
+import { useForm } from "react-hook-form";
 
 /**
  * React Component
@@ -24,13 +25,23 @@ export interface ProfileUpdateProps extends BlockAttributes {
 
 export const ProfileUpdate = ({ widgetApi }: ProfileUpdateProps): ReactElement | null => {
   const [user, setUser] = useState<SBUserProfile | null>(null);
-  
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+
+
   useEffect(() => {
     widgetApi.getUserInformation().then((user) => {
       console.log("user" , user)
-      localStorage.setItem('items', JSON.stringify(user));
+      // localStorage.setItem('items', JSON.stringify(user));
       setUser(user);
-      userFetch(user)
+      // userFetch(user)
     }
     );
   }, []);
@@ -63,16 +74,45 @@ export const ProfileUpdate = ({ widgetApi }: ProfileUpdateProps): ReactElement |
   }
 
   return <>
-    { user ? 
+     { user ? 
       <div>
         <h1 style={{ marginBottom: 10 }}>
            {user.firstName} {user.lastName} 🎉
         </h1>
-        <p>is from the {user.location} office and works in the {user.department} department.</p>
       </div>
       : 
       null 
     }
+
+   <form onSubmit={handleSubmit(onSubmit)} className="hook"  style={{width: '400px', marginTop: '100px'}}>
+    
+      <label className="hook__text"  style={{ display: "block"}}>Email</label>
+      <input
+        type="email"
+        className="hook__input"
+        style={{ width: "100%", fontSize:" 1.8rem"}}
+        {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
+      />
+      {errors.email && (
+        <p className="hook__error">Email is required and must be valid</p>
+      )}
+
+      <label className="hook__text">Password</label>
+      <input
+        type="password"
+        className="hook__input"
+        style={{ width: "100%", fontSize:" 1.8rem"}}
+
+        {...register("password", { required: true })}
+      />
+      {errors.password && <p className="hook__error">Password is required</p>}
+
+      <button className="hook__button" type="submit">
+        Submit
+      </button>
+    </form>
+  
+ 
   </>
 };
 
