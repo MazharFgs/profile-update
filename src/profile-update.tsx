@@ -74,7 +74,7 @@ export const ProfileUpdate = ({ widgetApi }: ProfileUpdateProps): ReactElement |
   }
 
   return <>
-     { user ? 
+     {/* { user ? 
       <div>
         <h1 style={{ marginBottom: 10 }}>
            {user.firstName} {user.lastName} 🎉
@@ -82,33 +82,94 @@ export const ProfileUpdate = ({ widgetApi }: ProfileUpdateProps): ReactElement |
       </div>
       : 
       null 
-    }
+    } */}
+
 
    <form onSubmit={handleSubmit(onSubmit)} className="hook"  style={{width: '400px', marginTop: '100px'}}>
-    
-      <label className="hook__text"  style={{ display: "block"}}>Email</label>
+     
+      <label className="profile-update-lable"  
+       style={{ display: "block", fontSize:"15px", margin:"10px"}}>
+        Name
+      </label>
+      <input 
+        type="text" 
+        defaultValue = {user?.firstName}
+        // placeholder="Name" 
+        style={{ width: "100%", fontSize:" 15px"}}
+        {...register("first_name", {required: true, maxLength: 80})} />
+        {errors.first_name && (
+        <p className="hook__error">Name is required and must be valid</p>
+      )}
+
+      <label className="profile-update-lable"  style={{ display: "block", fontSize:"15px", margin:"10px"}}>Last Name</label>
+      <input 
+        type="text" 
+        defaultValue = {user?.lastName}
+        // placeholder="last Name" 
+        style={{ width: "100%", fontSize:" 15px"}}
+        {...register("last_name", {required: true, maxLength: 80})} />
+        {errors.last_name && (
+        <p className="hook__error">Last Name is required and must be valid</p>
+      )}
+
+      <label className="profile-update-lable"  style={{ display: "block", fontSize:"15px", margin:"10px"}}>Phone Number</label>
+      <input 
+        type="text" 
+        defaultValue = {user?.phoneNumber}
+        // placeholder="phone_number" 
+        style={{ width: "100%", fontSize:" 15px"}}
+        {...register("phone_number", {required: true, maxLength: 80})} />
+        {errors.phone_number && (
+        <p className="hook__error">Phone Numberis required and must be valid</p>
+      )}
+
+      <label className="profile-update-lable"  style={{ display: "block", fontSize:"15px", margin:"10px"}}>External Phone Number</label>
+      <input 
+        type="text" 
+        // placeholder="external_phone_number" 
+        style={{ width: "100%", fontSize:" 15px"}}
+        {...register("external_phone_number", {required: false, maxLength: 80})} />
+        {errors.external_phone_number && (
+        <p className="hook__error">External Phone Numberis required and must be valid</p>
+      )}
+
+
+      <label className="profile-update-lable"  style={{ display: "block", fontSize:"15px", margin:"10px"}}>Email</label>
       <input
         type="email"
-        className="hook__input"
-        style={{ width: "100%", fontSize:" 1.8rem"}}
+        defaultValue = {user?.primaryEmail}
+        className="profile-update-input"
+        style={{ width: "100%", fontSize:" 15px"}}
         {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
       />
       {errors.email && (
         <p className="hook__error">Email is required and must be valid</p>
       )}
 
-      <label className="hook__text">Password</label>
+<label className="profile-update-lable"  style={{ display: "block", fontSize:"15px", margin:"10px"}}>Work Anniversary</label>
+      <input
+        type="text"
+        className="work-anniversary"
+        style={{ width: "100%", fontSize:" 15px"}}
+        {...register("work_anniversary", {required: true, maxLength: 80} )}
+      />
+      {errors.work_anniversary && (
+        <p className="hook__error">work anniversary is required</p>
+      )}
+
+
+      {/* <label className="hook__text" style={{ display: "block", fontSize:"15px", margin:"10px"}}>Password</label>
       <input
         type="password"
         className="hook__input"
-        style={{ width: "100%", fontSize:" 1.8rem"}}
+        style={{ width: "100%", fontSize:" 15px"}}
 
         {...register("password", { required: true })}
       />
-      {errors.password && <p className="hook__error">Password is required</p>}
+      {errors.password && <p className="hook__error">Password is required</p>} */}
 
-      <button className="hook__button" type="submit">
-        Submit
+      <button className="hook__button" type="submit"  style={{  margin:"10px"}}>
+        Update
       </button>
     </form>
   
