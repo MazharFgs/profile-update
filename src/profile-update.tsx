@@ -39,15 +39,15 @@ export const ProfileUpdate = ({ widgetApi }: ProfileUpdateProps): ReactElement |
   useEffect(() => {
     widgetApi.getUserInformation().then((user) => {
       console.log("user" , user)
-      // localStorage.setItem('items', JSON.stringify(user));
+      localStorage.setItem('items', JSON.stringify(user));
       setUser(user);
-      // userFetch(user)
+      userFetch(user)
     }
     );
   }, []);
 
   const userFetch = (inp: { externalID: any; }) => {
-    console.log("uuuu", inp)
+    console.log("user", inp)
     const url = `https://my.fgsglobal.com/api/users/${inp?.externalID}`
   const token ='NjU5NTJkNTJjYzBmNTMzMmU3ZTlmYzA0Ok0yfSt7TzleWSlwKHVhSV55NWhbSzFIJlFdU0hGOSpBQUwpdG5CLERmX2QsenBFK05nLWoqN1Q1M0czZXY4X14=';
   axios({
@@ -57,13 +57,6 @@ export const ProfileUpdate = ({ widgetApi }: ProfileUpdateProps): ReactElement |
           'Content-Type': 'application/json',
           Authorization: `Basic ${token}`,
         },
-      // data : {
-      //   firstName : inp.firstName,
-      //   lastName : inp.lastName,
-      //   profile: {
-      //     "hobbies": inp.hobbies.join()
-      // },
-      // }
    })
    .then(response => {
       console.log("response" , response)
